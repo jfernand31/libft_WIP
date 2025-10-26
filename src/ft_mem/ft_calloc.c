@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 12:06:10 by jfernand          #+#    #+#             */
-/*   Updated: 2025/04/11 19:14:15 by jfernand         ###   ########.fr       */
+/*   Created: 2025/04/08 18:33:20 by jfernand          #+#    #+#             */
+/*   Updated: 2025/04/17 14:55:17 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stddef.h>
+#include <stdlib.h>
 
-int	ft_isdigit(int c);
 
-int	ft_isdigit(int c)
+void	*ft_calloc(size_t n_elem, size_t el_size)
 {
-	if (c >= '0' && c <= '9')
+	char	*ptr;
+
+	if (el_size != 0 && n_elem > (__SIZE_MAX__ / el_size))
+		return (NULL);
+	ptr = (char *)malloc(n_elem * el_size);
+	if (ptr == NULL)
 	{
-		return (1);
+		return (NULL);
 	}
-	else
-	{
-		return (0);
-	}
+	ft_memset(ptr, 0, (n_elem * el_size));
+	return (ptr);
 }
+

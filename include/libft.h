@@ -13,8 +13,8 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stddef.h>
-# include "ft_printf/ft_printf.h"
-# include "get_next_line/get_next_line.h"
+# include "../src/ft_printf/ft_printf.h"
+# include "../src/get_next_line/get_next_line.h"
 
 typedef struct s_list
 {
@@ -22,7 +22,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-int		ft_atoi(const char *str);
+int		ft_atoi(const char *str, int *out);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t n_elem, size_t el_size);
 int		ft_isalnum(int c);

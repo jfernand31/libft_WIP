@@ -1,122 +1,52 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/02 19:45:19 by jfernand          #+#    #+#              #
-#    Updated: 2025/04/26 10:35:18 by jfernand         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Variables
+CC			= cc
+AR			= ar rcs
+RM			= rm -f
+CFLAGS		= -Wall -Wextra -Werror -g
+NAME		= libft.a
 
-# Name of the project
-NAME=libft.a
+# Folders
+INCLUDE_DIR	= include
+SRC_DIR		= src
+BUILD_DIR	= build
 
-# Object files
-CFILES= ./ft_atoi.c        \
-        ./ft_bzero.c      \
-		./ft_calloc.c      \
-		./ft_isalnum.c     \
-		./ft_isalpha.c     \
-		./ft_isascii.c     \
-		./ft_isdigit.c     \
-		./ft_isprint.c     \
-		./ft_itoa.c        \
-		./ft_memchr.c      \
-		./ft_memcmp.c      \
-		./ft_memcpy.c      \
-		./ft_memmove.c     \
-		./ft_memset.c      \
-		./ft_putchar_fd.c  \
-		./ft_putendl_fd.c  \
-		./ft_putnbr_fd.c   \
-		./ft_putstr_fd.c   \
-		./ft_split.c       \
-		./ft_strchr.c      \
-		./ft_strdup.c      \
-		./ft_striteri.c    \
-		./ft_strjoin.c     \
-		./ft_strlcat.c     \
-		./ft_strlcpy.c     \
-		./ft_strlen.c      \
-		./ft_strmapi.c     \
-		./ft_strncmp.c     \
-		./ft_strnstr.c     \
-		./ft_strrchr.c     \
-		./ft_strtrim.c     \
-		./ft_substr.c      \
-		./ft_tolower.c     \
-		./ft_toupper.c     \
-		./ft_printf/ft_printf.c         \
-		./ft_printf/ft_print_char.c     \
-		./ft_printf/ft_print_str.c      \
-		./ft_printf/ft_print_int.c      \
-		./ft_printf/ft_print_unsigned.c \
-		./ft_printf/ft_print_pointer.c  \
-		./ft_printf/ft_print_hex.c      \
-		./get_next_line/get_next_line_bonus.c       \
-		./get_next_line/get_next_line_utils_bonus.c \
-		./ft_lstadd_back_bonus.c  \
-        ./ft_lstadd_front_bonus.c \
-		./ft_lstclear_bonus.c     \
-		./ft_lstdelone_bonus.c    \
-		./ft_lstiter_bonus.c      \
-		./ft_lstnew_bonus.c       \
-		./ft_lstsize_bonus.c      \
-		./ft_lstlast_bonus.c      \
-		./ft_lstmap_bonus.c       \
-		
+# Colors
+DEF_COLOR 	= \033[0;39m
+GRAY 		= \033[0;90m
+RED 		= \033[0;91m
+GREEN 		= \033[0;92m
+YELLOW 		= \033[0;93m
+BLUE 		= \033[0;94m
+MAGENTA 	= \033[0;95m
+CYAN 		= \033[0;96m
+WHITE 		= \033[0;97m
 
-# .h files
-HFILES= ./libft.h \
-		./ft_printf/ft_printf.h \
-		./get_next_line/get_next_line_bonus.h \
+# Files
+SRCS		:= $(shell find $(SRC_DIR) -type f -name "*.c")
+OBJS		:= $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%.o, $(SRCS))
 
-# Object files
-OFILES= $(CFILES:.c=.o)
-
-# Bonus object files
-BOFILES= $(BFILES:.c=.o)
-
-# Compiler
-CC=@cc
-
-# Flags for compiler
-CCFLAGS=-Wall      \
-        -Wextra    \
-        -Werror    \
-
-# Command used to archive target
-AR= @ar -rcs
-
-# Command used to clean target
-RM = rm -rf
-
-#
-# Compilation and linking
-#
+# Rules
 all: $(NAME)
 
-$(NAME): $(OFILES) 
-	@ echo 'Building binary: $@'
-	$(AR) $@ $^
-	@ echo 'Finished building binary: $@'
+$(NAME): $(OBJS)
+	@$(AR) $(NAME) $(OBJS)
+	@printf "$(GREEN)$(subst .a,,$(NAME)) compiled! $(DEF_COLOR)\n"
 
-$(OFILES):%.o:%.c
-	@ echo 'Building target: $@'
-	@ $(CC) $(CCFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	@printf "$(YELLOW)Compiling: $< $(DEF_COLOR) \n"
+	@$(CC) $(CFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 clean:
-	@ $(RM) $(OFILES) $(BOFILES)
+	@rm -rf $(BUILD_DIR)
+	@printf "$(CYAN)$(subst .a,,$(NAME)) build files cleaned!$(DEF_COLOR)\n"
 
 fclean: clean
-	@ $(RM) $(NAME)
+	@rm -f $(NAME)
+	@printf "$(CYAN)$(subst .a,,$(NAME)) binaries cleaned!$(DEF_COLOR)\n"
 
 re: fclean all
+	@printf "$(GREEN)Cleaned and rebuilt!$(DEF_COLOR)\n"
 
-.PHONY= all clean fclean re bonus
-
-
-
-
+# Phony
+.PHONY: clean fclean bonus re all

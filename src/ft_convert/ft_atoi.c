@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-int	ft_atoi(const char *str);
-
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int *out)
 {
 	int	i;
 	int	is_neg;
@@ -37,20 +36,11 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if (result > INT_MAX || result < INT_MIN)
+			return (1);
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
-	return (result * is_neg);
-}
-
-/*#include <stdio.h>
-int	main(void)
-{
-	printf ("%d\n", ft_atoi("  	-5467ASSADsda"));
-	printf ("%d\n", ft_atoi("  	-+5467ASSADsda"));
-	printf ("%d\n", ft_atoi("  	-A5467ASSADsda"));
-	printf ("%d\n", ft_atoi("?  	-5467ASSADsda"));
-	printf ("%d\n", ft_atoi("  	5467ASSADsda"));
-	printf ("%d\n", ft_atoi("  	+5467ASSADsda"));
+	*out = result;
 	return (0);
-}*/
+}
