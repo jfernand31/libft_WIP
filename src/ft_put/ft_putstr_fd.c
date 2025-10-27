@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:50:43 by jfernand          #+#    #+#             */
-/*   Updated: 2025/04/11 19:57:41 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:20:52 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,3 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-
-/*int	main(void)
-{
-	ft_putstr_fd("Hello World", 1);
-	return (0);
-}*/

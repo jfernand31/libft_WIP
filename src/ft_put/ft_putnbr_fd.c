@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:50:26 by jfernand          #+#    #+#             */
-/*   Updated: 2025/04/11 19:57:25 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:20:48 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,3 @@ void	ft_putnbr_fd(int n, int fd)
 	else
 		ft_putchar_fd(n + '0', fd);
 }
-
-/*int main(void)
-{
-	ft_putnbr_fd(-2147483648, 1);
-	write (1, "\n", 1);
-	ft_putnbr_fd(2147483647, 1);
-	write (1, "\n", 1);
-	ft_putnbr_fd(42, 1);
-	write (1, "\n", 1);
-	ft_putnbr_fd(-42, 1);
-	write (1, "\n", 1);
-	return (0);
-}*/

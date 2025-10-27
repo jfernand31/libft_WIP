@@ -6,14 +6,14 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:11:26 by jfernand          #+#    #+#             */
-/*   Updated: 2025/04/13 18:32:37 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:23:49 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <limits.h>
 
-int	ft_atoi(const char *str, int *out)
+int	ft_safe_atoi(const char *str, int *out)
 {
 	int	i;
 	int	is_neg;
@@ -36,11 +36,11 @@ int	ft_atoi(const char *str, int *out)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (result > INT_MAX || result < INT_MIN)
+		if ((result * is_neg) > INT_MAX || (result * is_neg) < INT_MIN)
 			return (1);
 		result = result * 10 + str[i] - '0';
 		i++;
 	}
-	*out = result;
+	*out = result * is_neg;
 	return (0);
 }
