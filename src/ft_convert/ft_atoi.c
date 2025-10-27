@@ -6,7 +6,7 @@
 /*   By: jfernand <jfernand@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 18:11:26 by jfernand          #+#    #+#             */
-/*   Updated: 2025/10/27 11:23:49 by jfernand         ###   ########.fr       */
+/*   Updated: 2025/10/27 14:20:38 by jfernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,32 +15,29 @@
 
 int	ft_safe_atoi(const char *str, int *out)
 {
-	int	i;
-	int	is_neg;
-	int	result;
+	long	result;
+	int		sign;
 
-	i = 0;
-	is_neg = 1;
+	sign = 1;
 	result = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		i++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	if (str[i] == '-' || str[i] == '+')
+	while (*str >= '0' && *str <= '9')
 	{
-		if (str[i] == '-')
-		{
-			is_neg *= -1;
-		}
-		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		if ((result * is_neg) > INT_MAX || (result * is_neg) < INT_MIN)
+		if ((result > (LONG_MAX - (*str - '0')) / 10))
 			return (1);
-		result = result * 10 + str[i] - '0';
-		i++;
+		result = result * 10 + (*str - '0');
+		str++;
 	}
-	*out = result * is_neg;
+	result *= sign;
+	if (result > INT_MAX || result < INT_MIN)
+		return (1);
+	*out = (int)result;
 	return (0);
 }
